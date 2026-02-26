@@ -4,26 +4,34 @@ public class PalindromeCheckerApp {
 
         String input = "madam";
 
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        // Create service object
+        PalindromeService service = new PalindromeService();
+
+        boolean isPalindrome = service.checkPalindrome(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
     }
+}
 
-    // Recursive method
-    private static boolean check(String s, int start, int end) {
+// Service class that contains palindrome logic
+class PalindromeService {
 
-        // Base condition: If start >= end, all characters matched
-        if (start >= end) {
-            return true;
+    // Method to check palindrome
+    public boolean checkPalindrome(String input) {
+
+        int start = 0;
+        int end = input.length() - 1;
+
+        // Compare characters moving inward
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
 
-        // If mismatch found
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving inward
-        return check(s, start + 1, end - 1);
+        return true;
     }
 }
